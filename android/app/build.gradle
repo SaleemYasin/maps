@@ -1,0 +1,48 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+// Add this line to apply the Google Services plugin
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    namespace = "com.khushhali_app.khushhali_app"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId = "com.khushhali_app.khushhali_app"
+        minSdk = 23  
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+// Add Firebase dependencies here
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:32.0.0') // Adjust the version as necessary
+    implementation 'com.google.firebase:firebase-auth'
+    // Add other Firebase services as needed
+}
+
+flutter {
+    source = "../.."
+}

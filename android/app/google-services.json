@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "703912050382",
+    "project_id": "khushhali-app",
+    "storage_bucket": "khushhali-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703912050382:android:04a50eadb5b51c60f01a9f",
+        "android_client_info": {
+          "package_name": "com.khushhali_app.khushhali_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703912050382-mb765d6edehfo5nsp6k3g86b6oacc0rg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.khushhali_app.khushhali_app",
+            "certificate_hash": "85a1988c01fd73fa739a3a5a034f76e34799af1c"
+          }
+        },
+        {
+          "client_id": "703912050382-os8rpdlgjh7vhvu6d4vlds9lrrvmk1i9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsFfby_ZQrzY1yRoczNPYiGiV77DZe00A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "703912050382-os8rpdlgjh7vhvu6d4vlds9lrrvmk1i9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
