@@ -32,7 +32,8 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     initConnectivity();
     _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus)
+            as StreamSubscription<ConnectivityResult>;
   }
 
   @override

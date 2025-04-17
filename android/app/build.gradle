@@ -2,47 +2,56 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id 'com.google.gms.google-services' 
 }
 
-// Add this line to apply the Google Services plugin
-apply plugin: 'com.google.gms.google-services'
-
 android {
-    namespace = "com.khushhali_app.khushhali_app"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
+    namespace "com.khushhali_app.khushhali_app"
+    compileSdkVersion flutter.compileSdkVersion.toInteger() 
+    ndkVersion flutter.ndkVersion
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = '1.8'
+        freeCompilerArgs += [
+            '-Xskip-prerelease-check',
+            '-Xsuppress-version-warnings'
+        ]
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     defaultConfig {
-        applicationId = "com.khushhali_app.khushhali_app"
-        minSdk = 23  
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        applicationId "com.khushhali_app.khushhali_app"
+        minSdkVersion 23
+        targetSdkVersion flutter.targetSdkVersion.toInteger() // Explicit conversion
+        versionCode flutter.versionCode.toInteger()
+        versionName flutter.versionName
+
+        // Add NDK abiFilters to remove x86 support
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.debug
+            signingConfig signingConfigs.debug
+            // Enable code shrinking and obfuscation
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
-// Add Firebase dependencies here
 dependencies {
-    implementation platform('com.google.firebase:firebase-bom:32.0.0') // Adjust the version as necessary
-    implementation 'com.google.firebase:firebase-auth'
-    // Add other Firebase services as needed
+    implementation platform('com.google.firebase:firebase-bom:33.0.0') // Updated to latest
+    implementation 'com.google.firebase:firebase-auth-ktx' // Use -ktx version for Kotlin
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22' // Explicit Kotlin version
 }
 
 flutter {
-    source = "../.."
+    source '../..'
 }
