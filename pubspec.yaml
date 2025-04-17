@@ -65,3 +65,6 @@ flutter:
     - assets/background.png
     - assets/splash_screen.png
     - assets/graph_icon.png
+
+ios:
+  deployment-target: '13.0'
