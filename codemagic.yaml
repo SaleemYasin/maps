@@ -5,6 +5,10 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
+      vars:
+        # Required for code signing
+        XCODE_SCHEME: Runner
+        XCODE_CONFIGURATION: Release
     scripts:
       - name: Set iOS deployment target to 13.0
         script: |
@@ -13,12 +17,31 @@ workflows:
       - name: Install dependencies
         script: |
           flutter pub get
-      - name: Build iOS app
+          cd ios
+          pod install
+      - name: Build and Archive iOS app
         script: |
-          flutter build ios --release
+          flutter build ios --release --no-codesign
+          cd ios
+          xcodebuild archive \
+            -workspace Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -archivePath ../build/ios/archive/Runner.xcarchive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+      - name: Export iPA
+        script: |
+          cd ios
+          xcodebuild -exportArchive \
+            -archivePath ../build/ios/archive/Runner.xcarchive \
+            -exportOptionsPlist ../exportOptions.plist \
+            -exportPath ../build/ios/ipa \
+            -allowProvisioningUpdates
       - name: Build Android app
         script: |
           flutter build apk --release
     artifacts:
-      - build/ios/iphoneos/*.ipa
+      - build/ios/ipa/*.ipa
       - build/app/outputs/flutter-apk/app-release.apk
